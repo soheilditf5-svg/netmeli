@@ -22,9 +22,13 @@
 
 برای ران کردن توی همون پوشه میتونید کلیک راست کنید و open in termmianl رو بزنید یا توی address bar بالا cmd رو تایپ کنید و enter رو بزنید تا فایل شما اماده بشه
 
+
+
 Linux, macOS
 
 cat chunk_* > file.format
+
+
 
 
 Windows PowerShell 
@@ -32,12 +36,17 @@ Windows PowerShell
 cmd /c copy /b chunk_* file.format
 
 
+
+
 Windows  PowerShell 7+
 
 Get-Content chunk_* -AsByteStream | Set-Content file.format -AsByteStream
 
 
+
+
 cmd
+
 copy /b chunk_* file.format
 
 
