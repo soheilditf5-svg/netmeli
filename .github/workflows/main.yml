@@ -1,0 +1,39 @@
+name: Download Large File, Split, and Commit to Repo
+
+on:
+  workflow_dispatch:
+    inputs:
+      file_url:
+        description: 'Direct download URL of the large file'
+        required: true
+
+jobs:
+  split-and-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Download large file (use a temporary generic name)
+        run: |
+          curl -k -L --max-redirs 50 \
+            -A "Mozilla/5.0 ..." \
+            -c cookies.txt -b cookies.txt \
+            -o "downloaded_file" \
+            "${{ github.event.inputs.file_url }}"
+
+      - name: Split into 95MB chunks
+        run: |
+          mkdir -p chunks
+          split -b 95M downloaded_file chunks/chunk_
+
+      - name: Commit and push chunks
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add chunks/
+          git commit -m "Add split chunks from ${{ github.event.inputs.file_url }}" || echo "No changes"
+          git push
