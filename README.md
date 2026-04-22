@@ -1,6 +1,7 @@
 # netmeli
 
 فایل main.yml رو دانلود کنید
+
 برین  تو گیت هاب یک repository جدید درست کنید 
 بعد برید تو تب actions گزینه set up a workflow yourself رو بزنید 
 کد توی main.yml رو اینجا کپی کنید بعد Commit changes رو بزنید
